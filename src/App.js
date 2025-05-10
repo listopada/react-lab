@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import { useState } from "react";
+import "milligram";
 
 function App() {
     const [email, setEmail] = useState('');
@@ -17,7 +18,6 @@ function App() {
     }
 
     const trimmedEmail = email.trim();
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValidFormat = emailRegex.test(trimmedEmail);
 
@@ -39,42 +39,30 @@ function App() {
         isValidFormat;
 
     return (
-        <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+        <div className="container">
             <h1>Witamy w systemie do zapisów na zajęcia</h1>
 
             {isLoggedIn ? (
-                <div>
+                <section>
                     <h2>Witaj {trimmedEmail}</h2>
-                </div>
+                </section>
             ) : (
-                <div>
-                    <label htmlFor="email-input" style={{ display: 'block', marginBottom: '8px' }}>
-                        Zaloguj się emailem
-                    </label>
+                <section>
+                    <label htmlFor="email-input">Zaloguj się emailem</label>
                     <input
                         id="email-input"
                         type="text"
                         value={email}
                         onChange={handleChange}
-                        style={{ padding: '8px', width: '300px' }}
                     />
-
-                    <div style={{ marginTop: '10px', marginBottom: '20px', color: 'gray' }}>
-                        {message}
-                    </div>
-                </div>
+                    <p>{message}</p>
+                </section>
             )}
 
             <button
                 type="button"
                 onClick={handleLoginLogout}
                 disabled={!isLoggedIn && !canLogIn}
-                style={{
-                    padding: '10px 20px',
-                    marginTop: '20px',
-                    opacity: (!isLoggedIn && !canLogIn) ? 0.5 : 1,
-                    cursor: (!isLoggedIn && !canLogIn) ? 'not-allowed' : 'pointer'
-                }}
             >
                 {isLoggedIn ? 'Wyloguj' : 'Logowanie'}
             </button>
